@@ -44,8 +44,9 @@
         一手掌握全世界，立即加入東森網Line官方帳號</p>
         <script>
             document.querySelector('.ga_click').addEventListener('click', function(){
-                gtag('event', {
-                    event_name: 'click',
+                console.log('click')
+                gtag('event', 'click',{
+                    event_label: 'click',
                 })
             })
         </script>
