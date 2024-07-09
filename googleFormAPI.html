@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="googleFormAPI">測試googleFormAPI</button>
+    <script>
+        document.querySelector(".googleFormAPI").addEventListener("click", function() {
+            handleSubmit();
+        });
+        async function handleSubmit(e) {
+            //放上你剛存取的填寫google 表單時用的 url，然後加上/formResponse? 再加上 google form 上面的attr=${formData["你的attrname"]}
+            let url = `https://docs.google.com/forms/d/e/1FAIpQLSew9y_qvW3AH9o23CRgzOP7gO5dPU6ImNznzueHexaWkvauWw/formResponse?entry.1326824456=${'Teddy1'}&entry.293330781=${'0912-345-678T'}`;
+            
+                    const res = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }
+                    });
+                }
+    </script>
+</body>
+</html>
