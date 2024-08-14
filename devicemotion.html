@@ -35,11 +35,9 @@
                             // (optional) Do something after API prompt dismissed.
                             if (response == 'granted') {
                                 window.addEventListener('deviceorientation', (e) => {
-                                    document.querySelector('#alpha').innerHTML = '1'
-                                    document.querySelector('#beta').innerHTML = JSON.stringify(e, null, 2);
-                                    console.log(1)
+                                    document.querySelector('#alpha').innerHTML = e.alpha
+                                    document.querySelector('#beta').innerHTML = e.beta
                                     document.querySelector('#gamma').innerHTML = e.gamma
-                                    document.querySelector('#output').textContent = JSON.stringify(e, null, 2);
                                 })
                             }
                         })
@@ -50,10 +48,18 @@
             }
             const btn = document.getElementById('request')
             btn.addEventListener('click', permission)
-            // btn.addEventListener('click', function(e) {
-            //     console.log(e)
-            //     document.querySelector('#output').textContent = JSON.stringify(e, null, 2);
-            // })
+            btn.addEventListener('click', function(e) {
+                const output = document.getElementById('output');
+            output.innerHTML = ''; // 清空之前的内容
+            
+            for (let key in e) {
+                if (e.hasOwnProperty(key)) {
+                    let value = e[key];
+                    // 将对象的每个键值对显示在页面上
+                    output.innerHTML += `<strong>${key}</strong>: ${JSON.stringify(value, null, 2)}<br>`;
+                }
+            }
+            })
         </script>
     </body>
 </html>
