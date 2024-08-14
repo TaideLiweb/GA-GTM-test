@@ -27,7 +27,8 @@
                             if (response == 'granted') {
                                 window.addEventListener('devicemotion', (e) => {
                                     document.querySelector('#alpha').innerHTML = '1'
-                                    document.querySelector('#beta').innerHTML = e.beta
+                                    document.querySelector('#beta').innerHTML = e
+                                    console.log(e)
                                     document.querySelector('#gamma').innerHTML = e.gamma
                                 })
                             }
