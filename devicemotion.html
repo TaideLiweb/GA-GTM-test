@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <button id="request">開啟陀螺儀</button>
+        <div>alpha：<span id="alpha"></span></div>
+        <div>beta：<span id="beta"></span></div>
+        <div>gamma：<span id="gamma"></span></div>
+
+        <script>
+            if (location.protocol != 'https:') {
+                location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
+            }
+            function permission() {
+                if (
+                    typeof DeviceMotionEvent !== 'undefined' &&
+                    typeof DeviceMotionEvent.requestPermission === 'function'
+                ) {
+                    // (optional) Do something before API request prompt.
+                    DeviceMotionEvent.requestPermission()
+                        .then((response) => {
+                            // (optional) Do something after API prompt dismissed.
+                            if (response == 'granted') {
+                                window.addEventListener('devicemotion', (e) => {
+                                    document.querySelector('#alpha').innerHTML = '1'
+                                    document.querySelector('#beta').innerHTML = e.beta
+                                    document.querySelector('#gamma').innerHTML = e.gamma
+                                })
+                            }
+                        })
+                        .catch(console.error)
+                } else {
+                    alert('DeviceMotionEvent is not defined')
+                }
+            }
+            const btn = document.getElementById('request')
+            btn.addEventListener('click', permission)
+        </script>
+    </body>
+</html>
