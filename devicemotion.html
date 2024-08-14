@@ -4,13 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <style>
+        #output {
+            white-space: pre-wrap; /* 保留换行 */
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+        </style>
     </head>
     <body>
         <button id="request">開啟陀螺儀</button>
         <div>alpha：<span id="alpha"></span></div>
         <div>beta：<span id="beta"></span></div>
         <div>gamma：<span id="gamma"></span></div>
-
+        <div id="output"></div>
         <script>
             if (location.protocol != 'https:') {
                 location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
@@ -25,21 +34,26 @@
                         .then((response) => {
                             // (optional) Do something after API prompt dismissed.
                             if (response == 'granted') {
-                                window.addEventListener('devicemotion', (e) => {
+                                window.addEventListener('deviceorientation', (e) => {
                                     document.querySelector('#alpha').innerHTML = '1'
-                                    document.querySelector('#beta').innerHTML = e
-                                    console.log(e)
+                                    document.querySelector('#beta').innerHTML = JSON.stringify(e, null, 2);
+                                    console.log(1)
                                     document.querySelector('#gamma').innerHTML = e.gamma
+                                    document.querySelector('#output').textContent = JSON.stringify(e, null, 2);
                                 })
                             }
                         })
                         .catch(console.error)
                 } else {
-                    alert('DeviceMotionEvent is not defined')
+                    alert('deviceorientationEvent is not defined')
                 }
             }
             const btn = document.getElementById('request')
             btn.addEventListener('click', permission)
+            // btn.addEventListener('click', function(e) {
+            //     console.log(e)
+            //     document.querySelector('#output').textContent = JSON.stringify(e, null, 2);
+            // })
         </script>
     </body>
 </html>
